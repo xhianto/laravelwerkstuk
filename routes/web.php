@@ -19,8 +19,26 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/user', function () {
+        return view('other/user');
+    })->name('user');
+
+    Route::group(['middleware' => ['admin']], function () {
+
+        Route::get('/admin', function () {
+            return view('other/admin');
+        })->name('admin');
+
+    });
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('about', function () {
     return view('other/about');
 })->name('about');
+
+Route::get('geenToegang', function () {
+    return view('other/geenToegang');
+})->name('geenToegang');

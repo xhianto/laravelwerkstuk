@@ -18,6 +18,16 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@domein.be',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
+            'role_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        \DB::table('users')->insert([
+            'name' => 'user',
+            'email' => 'user@domein.be',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123456'),
+            'role_id' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ]);
