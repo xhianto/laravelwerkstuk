@@ -6,5 +6,6 @@
     <p><b>Authentication - Register, Login & password Reset:</b> <a href="https://www.youtube.com/watch?v=BvwEaWfpXY0&t=282s&ab_channel=Coder%27sTape">Link</a></p>
     <p><b>Rollen:</b> <a href="https://www.youtube.com/watch?v=FunXFMDIQ_o&list=WL&index=8&t=457s&ab_channel=CODINGISEASY">Link</a></p>
     <p><b>CRUD met Database: </b><a href="https://laravel.com/docs/8.x/database">Link</a></p>
-    <p><b></b><a href=""></a></p>
+    <p><b>File uploaden:</b> <a href="https://laravel.com/docs/8.x/filesystem">Link</a> <a href="https://medium.com/@mactavish10101/how-to-upload-images-in-laravel-7-7a7f9982ebba">Link</a></p>
+    <p><b></b> <a href=""></a></p>
 @endsection

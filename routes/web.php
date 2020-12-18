@@ -41,7 +41,7 @@ Route::group(['prefix' => 'nieuws'], function () {
     //alleen admin recht
     Route::group(['middleware' => ['admin']], function () {
         Route::post('/', [NieuwsItemsController::class, 'nieuwstoevoegen'])->name('nieuws');
-        Route::post('verwijderbewerk', [NieuwsItemsController::class, 'bewerkverwijder'] )->name('bewerkverwijder');
+        Route::post('bewerkverwijder', [NieuwsItemsController::class, 'bewerkverwijder'] )->name('bewerkverwijder');
 //        Route::get('verwijder', function () {
 //            return view('nieuws.verwijder');
 //        });

@@ -16,7 +16,7 @@ class CreateNieuwsItemsTable extends Migration
         Schema::create('nieuwsitems', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('afbeeldinguri');
+            $table->string('afbeeldinguri')->nullable();
             $table->string('tekst');
             $table->timestamps();
         });
