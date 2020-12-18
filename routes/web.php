@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NieuwsItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +35,22 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'nieuws'], function () {
+    Route::get('/', [NieuwsItemsController::class, 'nieuws'])->name('nieuws');
+
+    //alleen admin recht
+    Route::group(['middleware' => ['admin']], function () {
+        Route::post('/', [NieuwsItemsController::class, 'nieuwstoevoegen'])->name('nieuws');
+        Route::post('verwijderbewerk', [NieuwsItemsController::class, 'bewerkverwijder'] )->name('bewerkverwijder');
+//        Route::get('verwijder', function () {
+//            return view('nieuws.verwijder');
+//        });
+        Route::post('verwijder', [NieuwsItemsController::class, 'verwijder'])->name('verwijder');
+        Route::post('bewerk', [NieuwsItemsController::class, 'bewerk'])->name('bewerk');
+    });
+});
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('about', function () {
     return view('other/about');
