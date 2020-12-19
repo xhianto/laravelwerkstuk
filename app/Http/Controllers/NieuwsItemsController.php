@@ -20,12 +20,11 @@ class NieuwsItemsController extends Controller
     public function nieuwstoevoegen(Request $request) {
         $title = $request->input('title');
         $tekst = $request->input('tekst');
-        $image = $request->file('image');
         \DB::insert('insert into nieuwsitems (title, tekst, afbeeldinguri, created_at, updated_at) values (?, ?, ?, ?, ?)', [$title, $tekst, "1", now(), now()]);
         $item = \DB::table('nieuwsitems')->latest()->first();
         if ($request->hasFile('image')){
             if ($request->file('image')->isValid()) {
-                $validated = $request->validate([
+                $request->validate([
                     'image' => 'mimes:jpeg,png|max:5000'
                 ]);
                 $extension = $request->image->extension();
@@ -36,28 +35,6 @@ class NieuwsItemsController extends Controller
             }
         }
         return redirect(route('nieuws'));
-    }
-
-    function valideerPicture($picture){
-        if ($_FILES["picture"]["size"] != 0){
-            if ($picture["size"] > 26214400 ){
-                return "file is too big (max: 25mb)";
-            }else if (strtolower($picture["type"]) == "image/jpeg" || strtolower($picture["type"] == "image/png")){
-                $upload_dir = "uploads/";
-                if ($picture["error"] == "UPLOAD_ERR_OK"){
-                    $tmp_name = $picture["tmp_name"];
-                    $name = basename($picture["name"]);
-                    move_uploaded_file($tmp_name, "$upload_dir/$name");
-                }
-                return "";
-            }
-            return "Picture is not a jpg or png file";
-        }
-        else{
-            return "Picture required";
-        }
-
-
     }
 
     public function bewerkverwijder(Request $request) {
@@ -80,8 +57,21 @@ class NieuwsItemsController extends Controller
             $title = $request->input('title');
             $tekst = $request->input('tekst');
             $itemid = $request->input('itemId');
-            $afbeelinguri = "Hier komt afbeelding";
-            \DB::update('update nieuwsitems set title = ?, tekst = ?, afbeeldinguri = ?, updated_at = ? where id = ?', [$title, $tekst, $afbeelinguri, now(), $itemid]);
+            \DB::update('update nieuwsitems set title = ?, tekst = ?, updated_at = ? where id = ?', [$title, $tekst, now(), $itemid]);
+            if ($request->hasFile('image')){
+                if ($request->file('image')->isValid()) {
+                    $request->validate([
+                        'image' => 'mimes:jpeg,png|max:5000'
+                    ]);
+                    $extension = $request->image->extension();
+                    $item = Nieuwsitem::find($itemid);
+                    $path = \Str::replaceArray("storage", ["public"], $item->afbeeldinguri);
+                    Storage::delete($path);
+                    $request->image->storeAs('/public/images', $itemid . "." . $extension);
+                    $url = Storage::url('images/'. $itemid .".". $extension);
+                    \DB::update('update nieuwsitems set afbeeldinguri = ? where id = ?', [$url, $itemid]);
+                }
+            }
         }
         return redirect(route('nieuws'));
     }
@@ -91,9 +81,5 @@ class NieuwsItemsController extends Controller
             \DB::delete('delete from nieuwsitems  where id = ?', [$request->input('itemId')]);
         }
         return redirect(route('nieuws'));
-    }
-
-    public function authentication() {
-
     }
 }
