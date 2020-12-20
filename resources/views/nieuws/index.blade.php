@@ -2,14 +2,13 @@
 @section('content')
     <h1>Laatste nieuws</h1>
     @foreach($nieuwsItems as $item)
-        <div class="border-top row">
+        <div class="border-top row" style="margin-bottom: 20px">
             <div class="col-3">
-                <p>{{ $item->created_at }}</p>
+                <text style="color: #aaa">{{ $item->created_at }}</text>
                 <img class="img-fluid" src="{{ $item->afbeeldinguri }}" alt="afbeelding" style="max-height: 250px; width: auto ">
             </div>
             <div class="col-9">
-                <br />
-                <h3>{{ $item->title }}</h3>
+                <h3 style="margin-top: 20px">{{ $item->title }}</h3>
                 <p>{{ $item->tekst }}</p>
             </div>
             @if(Auth::user())

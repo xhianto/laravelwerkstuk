@@ -31,7 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin', function () {
             return view('other/admin');
         })->name('admin');
-
+        Route::get('/gebruikers', function () {
+            return view('auth.gebruikers');
+        })->name('gebruikersbeheer');
     });
 });
 
@@ -47,6 +49,24 @@ Route::group(['prefix' => 'nieuws'], function () {
 //        });
         Route::post('verwijder', [NieuwsItemsController::class, 'verwijder'])->name('verwijder');
         Route::post('bewerk', [NieuwsItemsController::class, 'bewerk'])->name('bewerk');
+    });
+});
+
+Route::group(['prefix' => 'profiel'], function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/', function () {
+            return view('profiel.index');
+        })->name('profiel');
+
+        Route::group(['middleware' => ['admin']], function () {
+
+//            Route::get('/admin', function () {
+//                return view('other/admin');
+//            })->name('admin');
+//            Route::get('/gebruikers', function () {
+//                return view('auth.gebruikers');
+//            })->name('gebruikersbeheer');
+        });
     });
 });
 
