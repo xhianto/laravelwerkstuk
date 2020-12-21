@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NieuwsItemsController;
+use App\Http\Controllers\GebruikersBeheerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin', function () {
             return view('other/admin');
         })->name('admin');
-        Route::get('/gebruikers', function () {
-            return view('auth.gebruikers');
-        })->name('gebruikersbeheer');
+
     });
 });
-
+//nieuws
 Route::group(['prefix' => 'nieuws'], function () {
     Route::get('/', [NieuwsItemsController::class, 'nieuws'])->name('nieuws');
 
@@ -44,12 +43,19 @@ Route::group(['prefix' => 'nieuws'], function () {
     Route::group(['middleware' => ['admin']], function () {
         Route::post('/', [NieuwsItemsController::class, 'nieuwstoevoegen'])->name('nieuws');
         Route::post('bewerkverwijder', [NieuwsItemsController::class, 'bewerkverwijder'] )->name('bewerkverwijder');
-//        Route::get('verwijder', function () {
-//            return view('nieuws.verwijder');
-//        });
         Route::post('verwijder', [NieuwsItemsController::class, 'verwijder'])->name('verwijder');
         Route::post('bewerk', [NieuwsItemsController::class, 'bewerk'])->name('bewerk');
     });
+});
+
+Route::group(['prefix' => 'gebruikersbeheer'], function () {
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/', [GebruikersBeheerController::class, 'index'])->name('gebruikersbeheer');
+        Route::post('/gebruikernaarbeheerder', [GebruikersBeheerController::class, 'gebruikerNaarBeheerder'])->name('gebruikerNaarBeheerder');
+        Route::post('/beheerdernaargebruiker', [GebruikersBeheerController::class, 'beheerderNaarGebruiker'])->name('beheerderNaarGebruiker');
+        Route::post('/beheerregistreer', [GebruikersBeheerController::class, 'beheerRegistreer'])->name('beheerRegistreer');
+    });
+
 });
 
 Route::group(['prefix' => 'profiel'], function () {

@@ -7,5 +7,6 @@
     <p><b>Rollen:</b> <a href="https://www.youtube.com/watch?v=FunXFMDIQ_o&list=WL&index=8&t=457s&ab_channel=CODINGISEASY">Link</a></p>
     <p><b>CRUD met Database: </b><a href="https://laravel.com/docs/8.x/database">Link</a></p>
     <p><b>File uploaden:</b> <a href="https://laravel.com/docs/8.x/filesystem">Link</a> <a href="https://medium.com/@mactavish10101/how-to-upload-images-in-laravel-7-7a7f9982ebba">Link</a></p>
+    <p><b>Inloggen met username i.p.v email</b> <a href="https://www.youtube.com/watch?v=Qtiyo2J_-tA&feature=emb_logo&ab_channel=SaeedPrez">Link</a></p>
     <p><b></b> <a href=""></a></p>
 @endsection
