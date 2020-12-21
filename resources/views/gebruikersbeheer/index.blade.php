@@ -96,6 +96,7 @@
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
                 </div>
+                <div class="form-group offset-md-4" style="padding-left: 15px">
 
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="soortGebruiker" id="soortGebruiker1" value="2" checked>
@@ -108,6 +109,7 @@
                     <label class="form-check-label" for="soortgebruiker2">
                         Beheerder
                     </label>
+                </div>
                 </div>
 
                 <div class="form-group row mb-0">

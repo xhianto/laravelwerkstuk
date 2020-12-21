@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NieuwsItemsController;
 use App\Http\Controllers\GebruikersBeheerController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,11 @@ Route::group(['prefix' => 'profiel'], function () {
 //            })->name('gebruikersbeheer');
         });
     });
+});
+
+Route::group(['prefix' => 'contact'], function () {
+    Route::get('/', [ContactController::class, 'index'])->name('contact');
+    Route::post('/sendEmail', [ContactController::class, 'sendEmail'])->name('sendEmail');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
