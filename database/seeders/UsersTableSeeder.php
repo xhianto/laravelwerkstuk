@@ -14,8 +14,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         \DB::table('users')->insert([
-            'name' => 'admin',
+            //'name' => 'admin',
             'username' => 'admin',
+            'voornaam' => 'Ad',
+            'familienaam' => 'Min',
+            'straat' => 'straat',
+            'huisnummer' => '1',
+            'postcode' => 1000,
+            'plaats' => 'Brussel',
+            'geboortedatum' => date('Y-m-d', mktime(0,0,0,1,1,1900)),
             'email' => 'admin@domein.be',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
@@ -24,8 +31,15 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         \DB::table('users')->insert([
-            'name' => 'user',
+            //'name' => 'user',
             'username' => 'user',
+            'voornaam' => 'U',
+            'familienaam' => 'Ser',
+            'straat' => 'straat',
+            'huisnummer' => '2',
+            'postcode' => 1000,
+            'plaats' => 'Brussel',
+            'geboortedatum' => date('Y-m-d', mktime(0,0,0,1,1,1900)),
             'email' => 'user@domein.be',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),

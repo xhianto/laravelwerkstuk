@@ -11,9 +11,9 @@ use function GuzzleHttp\json_decode;
 class NieuwsItemsController extends Controller
 {
     public function nieuws() {
-        $nieuwsItems = Nieuwsitem::all();
+        $nieuwsItems = Nieuwsitem::orderBy('created_at', 'desc')->take(10)->get();
         return view('nieuws.index', [
-            "nieuwsItems" => $nieuwsItems
+            'nieuwsItems' => $nieuwsItems
         ]);
     }
 
@@ -34,7 +34,7 @@ class NieuwsItemsController extends Controller
 
                 $request->image->storeAs('/public/images', "nieuws". $item->id .".". $extension);
                 $url = Storage::url('images/nieuws'. $item->id .".". $extension);
-                $item->afbeeldinguri = $url;
+                $item->afbeelding = $url;
                 $item->save();
             }
         }
@@ -65,11 +65,11 @@ class NieuwsItemsController extends Controller
                         'image' => 'mimes:jpeg,png|max:5000'
                     ]);
                     $extension = $request->image->extension();
-                    $path = \Str::replaceArray("storage", ["public"], $item->afbeeldinguri);
+                    $path = \Str::replaceArray("storage", ["public"], $item->afbeelding);
                     Storage::delete($path);
                     $request->image->storeAs('/public/images', "nieuws". $item->id .".". $extension);
                     $url = Storage::url('images/nieuws'. $item->id .".". $extension);
-                    $item->afbeeldinguri = $url;
+                    $item->afbeelding = $url;
                 }
             }
             $item->title = $request->input('title');

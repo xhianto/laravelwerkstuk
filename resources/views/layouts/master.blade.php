@@ -19,6 +19,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href={{ asset('css/site.css') }} />
+
+    @yield('plugins')
 </head>
 <body>
     <div class="container content">

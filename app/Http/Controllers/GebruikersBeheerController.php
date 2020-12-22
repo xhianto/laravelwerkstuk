@@ -16,13 +16,13 @@ class GebruikersBeheerController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'username' => ['required', 'max:20', 'unique:users'],
+            'userame' => ['required', 'max:20', 'unique:users'],
         ]);
     }
     public function index()
     {
-        $beheerders = User::where('role_id', 1)->get();
-        $users = User::where('role_id', 2)->get();
+        $beheerders = User::where('role_id', 1)->orderBy('username')->get();
+        $users = User::where('role_id', 2)->orderBy('username')->get();
         return view('gebruikersbeheer.index', [
             'beheerders' => $beheerders,
             'users' => $users
@@ -48,12 +48,20 @@ class GebruikersBeheerController extends Controller
     }
 
     public function beheerRegistreer(Request $request){
+        $geboortedatum = date('Y-m-d', strtotime($request->input('geboortedatum')));
         User::create([
             'name' => $request->input('name'),
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'role_id' => $request->input('soortGebruiker'),
+            'voornaam' => $request->input('voornaam'),
+            'familienaam' => $request->input('familienaam'),
+            'straat' => $request->input('straat'),
+            'huisnummer' => $request->input('huisnummer'),
+            'postcode' => $request->input('postcode'),
+            'plaats' => $request->input('plaats'),
+            'geboortedatum' => $geboortedatum,
             'created_at' => now(),
             'updated_at' => now()
         ]);

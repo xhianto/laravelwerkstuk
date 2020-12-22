@@ -49,11 +49,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['geboortedatum'] = date('Y-m-d', strtotime($data['geboortedatum']));
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            //'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'username' => ['required', 'max:20', 'unique:users'],
+            'username' => ['required', 'string', 'max:20', 'unique:users'],
+            'geboortedatum' => ['required', 'date'],
         ]);
     }
 
@@ -65,12 +67,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['geboortedatum'] = date('Y-m-d', strtotime($data['geboortedatum']));
         return User::create([
-            'name' => $data['name'],
+            //'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role_id' => 2,
             'username' => $data['username'],
+            'voornaam' => $data['voornaam'],
+            'familienaam' => $data['familienaam'],
+            'straat' => $data['straat'],
+            'huisnummer' => $data['huisnummer'],
+            'postcode' => $data['postcode'],
+            'plaats' => $data['plaats'],
+            'geboortedatum' => $data['geboortedatum'],
         ]);
     }
 }

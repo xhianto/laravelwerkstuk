@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <input id="naam" type="text" class="form-control" name="naam" required
                 @if(Auth::user())
-                    value="{{Auth::user()->name}}" readonly
+                    value="{{Auth::user()->username}}" readonly
                 @endif
                 />
             </div>

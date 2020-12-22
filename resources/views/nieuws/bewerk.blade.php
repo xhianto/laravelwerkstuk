@@ -4,7 +4,7 @@
         @csrf
         <div class="col-3">
             <p>{{ $item->created_at }}</p>
-            <img class="img-fluid" src="{{ $item->afbeeldinguri }}" alt="afbeelding" style="max-height: 250px; width: auto ">
+            <img class="img-fluid" src="{{ $item->afbeelding }}" alt="afbeelding" style="max-height: 250px; width: auto ">
             <input type="file" name="image" />
         </div>
         <div class="col-9">

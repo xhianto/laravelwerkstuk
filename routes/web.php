@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NieuwsItemsController;
 use App\Http\Controllers\GebruikersBeheerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfielController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,9 +62,8 @@ Route::group(['prefix' => 'gebruikersbeheer'], function () {
 
 Route::group(['prefix' => 'profiel'], function () {
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/', function () {
-            return view('profiel.index');
-        })->name('profiel');
+        Route::get('/{username}', [ProfielController::class, 'profiel'])->name('profiel');
+        Route::post('/{username}', [ProfielController::class, 'opslaan'])->name('profielopslaan');
 
         Route::group(['middleware' => ['admin']], function () {
 
