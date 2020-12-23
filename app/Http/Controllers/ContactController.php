@@ -14,6 +14,12 @@ class ContactController extends Controller
     }
 
     public function sendEmail(Request $request) {
+        request()->validate([
+            'naam' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
+            'bericht' => ['required', 'string', 'min:10'],
+            'onderwerp' => ['required', 'string']
+        ]);
         $email = $request->input('email');
         $bericht = $request->input('bericht');
         $onderwerp = $request->input('onderwerp');

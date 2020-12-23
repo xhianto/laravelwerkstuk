@@ -4,35 +4,59 @@
     <form action="{{ route('sendEmail') }}" method="post">
         @csrf
         <div class="form-group row">
-            <label for="naam" class="col-md-4 col-form-label text-md-right">Naam:</label>
+            <label for="naam" class="col-md-4 col-form-label text-md-right">{{ __('Naam') }}</label>
             <div class="col-md-6">
-                <input id="naam" type="text" class="form-control" name="naam" required
+                <input id="naam" type="text" class="form-control @error('naam') is-invalid @enderror" name="naam" required autocomplete="name" autofocus
                 @if(Auth::user())
                     value="{{Auth::user()->username}}" readonly
+                @else
+                    value="{{ old('naam') }}"
                 @endif
                 />
+                @error('naam')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="form-group row">
-            <label for="naam" class="col-md-4 col-form-label text-md-right">Email:</label>
+            <label for="naam" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control" name="email" required
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus
                    @if(Auth::user())
                        value="{{Auth::user()->email}}" readonly
+                   @else
+                       value="{{ old('email') }}"
                     @endif
                 />
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="form-group row">
-            <label for="onderwerp" class="col-md-4 col-form-label text-md-right">Onderwerp:</label>
+            <label for="onderwerp" class="col-md-4 col-form-label text-md-right">{{ __('Onderwerp') }}</label>
             <div class="col-md-6">
-                <input id="onderwerp" type="text" class="form-control" name="onderwerp" required />
+                <input id="onderwerp" type="text" class="form-control @error('onderwerp') is-invalid @enderror" name="onderwerp" value="{{ old('onderwerp') }}" required autocomplete="onderwerp" autofocus />
+                @error('onderwerp')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="form-group row">
-            <label for="naam" class="col-md-4 col-form-label text-md-right">Bericht:</label>
+            <label for="naam" class="col-md-4 col-form-label text-md-right">{{ __('Bericht') }}</label>
             <div class="col-md-6">
-                <textarea rows="6" cols="100" class="form-control" name="bericht"></textarea>
+                <textarea rows="6" cols="100" class="form-control @error('bericht') is-invalid @enderror" name="bericht" required autocomplete="bericht" autofocus>{{ old('bericht') }}</textarea>
+                @error('bericht')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="form-group" style="padding-left: 15px">

@@ -141,7 +141,7 @@
                                 <input id="geboortedatum" type="text" class="datepicker form-control @error('geboortedatum') is-invalid @enderror" name="geboortedatum" value="{{ old('geboortedatum') }}" required autocomplete="geboortedatum" autofocus>
                                 <script type="text/javascript">
                                     $('.datepicker').datepicker({
-                                        format: 'dd-mm-yyyy'
+                                        format: 'dd/mm/yyyy'
                                     });
                                 </script>
                                 @error('geboortedatum')
@@ -157,7 +157,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

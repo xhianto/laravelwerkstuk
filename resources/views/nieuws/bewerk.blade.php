@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <form class="border-top row" action="{{ route('bewerk') }}" method="post" enctype="multipart/form-data">
+    <form class="border-top row" action="{{ route('bewerken') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="col-3">
             <p>{{ $item->created_at }}</p>
@@ -8,10 +8,20 @@
             <input type="file" name="image" />
         </div>
         <div class="col-9">
-            <label>Titel:</label></br>
-            <input name="title" value="{{ $item->title }}"/></br>
-            <label>Bericht:</label></br>
-            <textarea rows="4" cols="50" name="tekst">{{ $item->tekst }}</textarea>
+            <label>Titel:</label><br/>
+            <input name="title" @if(old('title') != null)value="{{ old('title') }}"@else value="{{ $item->title }}"@endif class="@error('title') is-invalid @enderror" required autocomplete="title" autofocus /><br/>
+            @error('title')
+                <span class="invalid-feedback" role="alert"><br/>
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <label>Bericht:</label><br/>
+            <textarea rows="4" cols="50" name="tekst" class="@error('tekst') is-invalid @enderror" required autocomplete="tekst" autofocus>@if(old('tekst') != null){{ old('tekst') }}@else{{ $item->tekst }}@endif</textarea>
+            @error('tekst')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
         <div class="offset-3">
             <input type="hidden" name="itemId" value="{{ $item->id }}">

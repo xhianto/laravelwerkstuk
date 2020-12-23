@@ -14,7 +14,7 @@
             <img class="img-fluid" src="{{ $user->avatar }}" alt="avatar" style="max-height: 250px; width: auto;">
             @if (Auth::user() == $user)
                 <div>
-                    <label for="avatar" class="btn border-secondary" style="margin: 3px 0px">Avatar veranderen</label>
+                    <label for="avatar" class="btn border-secondary" style="margin: 3px 0">Avatar veranderen</label>
                     <input id="avatar" hidden type="file" name="avatar">
                 </div>
             @endif
@@ -32,36 +32,105 @@
                 </div>
                 <div class="form-group row">
                     <label for="straat" class="col-md-4 col-form-label">Straat: </label>
-                    <input type="text" id="straat" class="col-md-8 form-control" name="straat" value="{{ $user->straat }}" />
+                    <input type="text" id="straat" class="col-md-8 form-control @error('straat') is-invalid @enderror" name="straat"
+                        @if (old('straat') != null)
+                            value="{{ old('straat') }}"
+                        @else
+                            value="{{ $user->straat }}"
+                        @endif
+                        required autocomplete="straat"/>
+                    @error('straat')
+                    <span class="offset-md-4 invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label for="huisnummer" class="col-sm-4 col-form-label">Huisnummer: </label>
-                    <input type="text" id="huisnummer" class="col-md-8 form-control" name="huisnummer" value="{{ $user->huisnummer }}" />
+                    <input type="text" id="huisnummer" class="col-md-8 form-control @error('huisnummer') is-invalid @enderror" name="huisnummer"
+                        @if (old('huisnummer') != null)
+                            value="{{ old('huisnummer') }}"
+                        @else
+                            value="{{ $user->huisnummer }}"
+                        @endif
+                        required autocomplete="huisnummer" />
+                    @error('huisnummer')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label for="postcode" class="col-md-4 col-form-label">Postcode: </label>
-                    <input type="text" id="postcode" class="col-md-8 form-control" name="postcode" value="{{ $user->postcode }}" />
+                    <input type="text" id="postcode" class="col-md-8 form-control @error('postcode') is-invalid @enderror" name="postcode"
+                        @if(old('postcode') != null)
+                            value="{{ old('postcode') }}"
+                        @else
+                            value="{{ $user->postcode }}"
+                        @endif
+                        required autocomplete="postcode" />
+                    @error('postcode')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label for="plaats" class="col-md-4 col-form-label">Plaats: </label>
-                    <input type="text" id="plaats" class="col-md-8 form-control" name="plaats" value="{{ $user->plaats }}" />
+                    <input type="text" id="plaats" class="col-md-8 form-control @error('plaats') is-invalid @enderror" name="plaats"
+                        @if(old('plaats') != null)
+                            value="{{ old('plaats') }}"
+                        @else
+                            value="{{ $user->plaats }}"
+                        @endif
+                        required autocomplete="plaats" />
+                    @error('plaats')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label for="geboortedatum" class="col-md-4 col-form-label">Geboortedatum: </label>
-                    <input type="text" id="geboortedatum" class="datepicker col-md-8 form-control" name="geboortedatum" value="{{ date('d-m-Y', strtotime($user->geboortedatum)) }}" />
+                    <input type="text" id="geboortedatum" class="datepicker col-md-8 form-control @error('geboortedatum') is-invalid @enderror" name="geboortedatum"
+                        @if(old('geboortedatum') != null)
+                            value="{{ old('geboortedatum') }}"
+                        @else
+                            value="{{ date('d/m/Y', strtotime($user->geboortedatum)) }}"
+                        @endif
+                        required autocomplete="plaats" />
                     <script type="text/javascript">
                         $('.datepicker').datepicker({
-                            format: 'dd-mm-yyyy'
+                            format: 'dd/mm/yyyy'
                         });
                     </script>
+                    @error('geboortedatum')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group row">
+                    <label for="oldpassword" class="col-md-4 col-form-label">Oude password: </label>
+                    <input type="password" id="oldpassword" class="col-md-8 form-control @error('oldpassword') is-invalid @enderror" name="oldpassword" autocomplete="oldpassword" />
+                    @error('oldpassword')
+                    <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-md-4 col-form-label">Password: </label>
-                    <input type="password" id="password" class="col-md-8 form-control" name="password" />
+                    <input type="password" id="password" class="col-md-8 form-control @error('password') is-invalid @enderror" name="password" autocomplete="password" />
+                    @error('password')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
-                    <label for="bevestigPassword" class="col-md-4 col-form-label">Bevestig Password: </label>
-                    <input type="password" id="bevestigPassword" class="col-md-8 form-control" name="bevestigPassword" />
+                    <label for="password_confirmation" class="col-md-4 col-form-label">Bevestig Password: </label>
+                    <input type="password" id="password_confirmation" class="col-md-8 form-control" name="password_confirmation" />
                 </div>
                 <div class="form-group row" style="text-align: center">
                     <button class="offset-md-4 btn btn-secondary" type="submit" class="btn btn-primary">

@@ -12,7 +12,7 @@
             <p>{{ $item->tekst }}</p>
         </div>
     </div>
-    <form class="offset-3" action="{{ route('verwijder') }}" method="post">
+    <form class="offset-3" action="{{ route('verwijderen') }}" method="post">
         @csrf
         <input type="hidden" name="itemId" value="{{ $item->id }}">
         <button class="btn btn-primary" type="submit" name="keuze" value="verwijder">Verwijder</button>

@@ -45,17 +45,19 @@ Route::group(['prefix' => 'nieuws'], function () {
     Route::group(['middleware' => ['admin']], function () {
         Route::post('/', [NieuwsItemsController::class, 'nieuwstoevoegen'])->name('nieuws');
         Route::post('bewerkverwijder', [NieuwsItemsController::class, 'bewerkverwijder'] )->name('bewerkverwijder');
-        Route::post('verwijder', [NieuwsItemsController::class, 'verwijder'])->name('verwijder');
-        Route::post('bewerk', [NieuwsItemsController::class, 'bewerk'])->name('bewerk');
+        Route::get('verwijder/{id}', [NieuwsItemsController::class, 'verwijder'])->name('verwijder');
+        Route::post('verwijderen', [NieuwsItemsController::class, 'verwijderen'])->name('verwijderen');
+        Route::get('bewerk/{id}', [NieuwsItemsController::class, 'bewerk'])->name('bewerk');
+        Route::post('bewerken', [NieuwsItemsController::class, 'bewerken'])->name('bewerken');
     });
 });
 
 Route::group(['prefix' => 'gebruikersbeheer'], function () {
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/', [GebruikersBeheerController::class, 'index'])->name('gebruikersbeheer');
-        Route::post('/gebruikernaarbeheerder', [GebruikersBeheerController::class, 'gebruikerNaarBeheerder'])->name('gebruikerNaarBeheerder');
-        Route::post('/beheerdernaargebruiker', [GebruikersBeheerController::class, 'beheerderNaarGebruiker'])->name('beheerderNaarGebruiker');
-        Route::post('/beheerregistreer', [GebruikersBeheerController::class, 'beheerRegistreer'])->name('beheerRegistreer');
+        Route::post('gebruikernaarbeheerder', [GebruikersBeheerController::class, 'gebruikerNaarBeheerder'])->name('gebruikerNaarBeheerder');
+        Route::post('beheerdernaargebruiker', [GebruikersBeheerController::class, 'beheerderNaarGebruiker'])->name('beheerderNaarGebruiker');
+        Route::post('beheerregistreer', [GebruikersBeheerController::class, 'beheerRegistreer'])->name('beheerRegistreer');
     });
 
 });

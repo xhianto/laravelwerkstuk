@@ -48,23 +48,22 @@ class GebruikersBeheerController extends Controller
     }
 
     public function beheerRegistreer(Request $request){
-        $geboortedatum = date('Y-m-d', strtotime($request->input('geboortedatum')));
-        User::create([
-            'name' => $request->input('name'),
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role_id' => $request->input('soortGebruiker'),
-            'voornaam' => $request->input('voornaam'),
-            'familienaam' => $request->input('familienaam'),
-            'straat' => $request->input('straat'),
-            'huisnummer' => $request->input('huisnummer'),
-            'postcode' => $request->input('postcode'),
-            'plaats' => $request->input('plaats'),
-            'geboortedatum' => $geboortedatum,
-            'created_at' => now(),
-            'updated_at' => now()
+        $data = request()->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'min:4','max:20', 'unique:users'],
+            'geboortedatum' => ['required', 'date_format:d/m/Y', 'before:tomorrow'],
+            'voornaam' => ['required', 'string'],
+            'familienaam' => ['required', 'string'],
+            'straat' => ['required', 'string'],
+            'huisnummer' => ['required', 'string'],
+            'postcode' => ['required', 'numeric', 'min:1000', 'max:9999'],
+            'plaats' => ['required', 'string']
         ]);
+        $data['geboortedatum'] = date('Y-m-d', strtotime(\Str::replaceArray('/',['-','-'],$data['geboortedatum'])));
+        $data['role_id'] = $request->input('soortGebruiker');
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
         return redirect(route('gebruikersbeheer'));
     }
 }

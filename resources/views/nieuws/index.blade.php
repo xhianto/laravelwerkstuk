@@ -30,12 +30,23 @@
             <form action="{{ route('nieuws') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                    <label id="title" class="col-sm-3 col-form-label">Titel: </label>
-                    <input type="text" class="form-control col-sm-6" name="title" />
+                    <label id="title" class="col-sm-3 col-form-label">Titel </label>
+                    <input type="text" class="form-control col-sm-6 @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus />
+                    @error('title')
+                        <span class="offset-sm-3 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+
                 <div class="form-group row">
-                    <label id="tekst" class="col-sm-3 col-form-label">Bericht: </label>
-                    <textarea rows="4" cols="50" class="form-control col-sm-6" name="tekst"></textarea>
+                    <label id="tekst" class="col-sm-3 col-form-label">Bericht </label>
+                    <textarea rows="4" cols="50" class="form-control col-sm-6 @error('tekst') is-invalid @enderror" name="tekst" required autocomplete="tekst" autofocus>{{ old('tekst') }}</textarea>
+                    @error('tekst')
+                        <span class="offset-sm-3 invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="image">Afbeelding: </label>

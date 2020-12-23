@@ -18,12 +18,11 @@ class NieuwsItemsController extends Controller
     }
 
     public function nieuwstoevoegen(Request $request) {
-        Nieuwsitem::create([
-            'title' => $request->input('title'),
-            'tekst' => $request->input('tekst'),
-            'created_at' => now(),
-            'updated_at' => now(),
+        $data = request()->validate([
+            'title' => ['required', 'string'],
+            'tekst' => ['required', 'string', 'min:10'],
         ]);
+        Nieuwsitem::create($data);
         $item = Nieuwsitem::latest()->first();
         if ($request->hasFile('image')){
             if ($request->file('image')->isValid()) {
@@ -43,21 +42,37 @@ class NieuwsItemsController extends Controller
 
     public function bewerkverwijder(Request $request) {
         $id = $request->input('nieuwsItem');
-        $item = Nieuwsitem::find($id);
         switch ($request->input('keuze')) {
             case 'bewerk':
-                return view('nieuws/bewerk', [
-                    "item" => $item
-                ]);
+                return redirect(route('bewerk', [
+                    'id' => $id
+                ]));
             case 'verwijder':
-                return view('nieuws/verwijder', [
-                    "item" => $item
-                ]);
+                return redirect(route('verwijder', [
+                    'id' => $id
+                ]));
         }
     }
+    public function bewerk($id){
+        $item = Nieuwsitem::find($id);
+        return view('nieuws.bewerk', [
+            'item' => $item
+        ]);
+    }
 
-    public function bewerk(Request $request){
+    public function verwijder($id){
+        $item = Nieuwsitem::find($id);
+        return view('nieuws.verwijder', [
+            'item' => $item
+        ]);
+    }
+
+    public function bewerken(Request $request){
         if ($request->input('keuze') == "bewerk"){
+            request()->validate([
+                'title' => ['required', 'string'],
+                'tekst' => ['required', 'string', 'min:10'],
+            ]);
             $item = Nieuwsitem::find($request->input('itemId'));
             if ($request->hasFile('image')){
                 if ($request->file('image')->isValid()) {
@@ -79,7 +94,7 @@ class NieuwsItemsController extends Controller
         return redirect(route('nieuws'));
     }
 
-    public function verwijder(Request $request){
+    public function verwijderen(Request $request){
         if ($request->input('keuze') == "verwijder"){
             $item = Nieuwsitem::find($request->input('itemId'));
             $item->delete();

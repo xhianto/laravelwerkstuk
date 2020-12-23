@@ -7,36 +7,42 @@
 
 @endsection
 @section('content')
+    <div style="text-align: center">
+
     <h1>Beheerder gebruiker maken:</h1>
-    <form action="{{ route('beheerderNaarGebruiker') }}" method="post">
-        @csrf
-        <select class="btn border-secondary" name="beheerder" id="beheerder">
-            <option value="0" disabled="true" selected>{{ __('---Selecteer een beheerder---') }}</option>
-            @foreach($beheerders as $beheerder)
-                <option value="{{ $beheerder->id }}"
-                @if(Auth::User()->id == $beheerder->id)
-                    disabled
-                @endif
-                >{{ $beheerder->username }}</option>
-            @endforeach
-        </select>
-        <button type="submit" name="submit" value="submit" class="btn btn-secondary">Beheerder gebruiker maken</button>
-    </form>
+        <form action="{{ route('beheerderNaarGebruiker') }}" method="post">
+            @csrf
+            <select class="btn border-secondary" name="beheerder" id="beheerder">
+                <option value="0" disabled="true" selected>{{ __('---Selecteer een beheerder---') }}</option>
+                @foreach($beheerders as $beheerder)
+                    <option value="{{ $beheerder->id }}"
+                    @if(Auth::User()->id == $beheerder->id)
+                        disabled
+                    @endif
+                    >{{ $beheerder->username }}</option>
+                @endforeach
+            </select>
+            <button type="submit" name="submit" value="submit" class="btn btn-secondary">Beheerder gebruiker maken</button>
+        </form>
+    </div>
+    <div style="text-align: center">
+
     <h1>Gebruiker beheerder maken:</h1>
-    <form action="{{ route('gebruikerNaarBeheerder') }}" method="post">
-        @csrf
-        <select class="btn border-secondary" name="gebruiker" id="gebruiker">
-            <option value="0" disabled="true" selected>{{ __('---Selecteer een gebruiker---') }}</option>
+        <form action="{{ route('gebruikerNaarBeheerder') }}" method="post">
+            @csrf
+            <select class="btn border-secondary" name="gebruiker" id="gebruiker">
+                <option value="0" disabled="true" selected>{{ __('---Selecteer een gebruiker---') }}</option>
 
-            @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->username }}</option>
-            @endforeach
-        </select>
-        <button type="submit" name="submit" value="submit" class="btn btn-secondary">Gebruiker beheerder maken</button>
-    </form>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->username }}</option>
+                @endforeach
+            </select>
+            <button type="submit" name="submit" value="submit" class="btn btn-secondary">Gebruiker beheerder maken</button>
+        </form>
+    </div>
 
 
-    <h1>Nieuwe gebruiker toevoegen:</h1>
+    <h1 style="text-align: center">Nieuwe gebruiker toevoegen:</h1>
 
             <form method="POST" action="{{ route('beheerRegistreer') }}">
                 @csrf
@@ -160,7 +166,7 @@
                         <input id="geboortedatum" type="text" class="datetimepicker form-control @error('geboortedatum') is-invalid @enderror" name="geboortedatum" value="{{ old('geboortedatum') }}" required autocomplete="geboortedatum" autofocus>
                         <script type="text/javascript">
                             $('.datetimepicker').datepicker({
-                                format: 'dd-mm-yyyy'
+                                format: 'dd/mm/yyyy'
                             });
                         </script>
                         @error('geboortedatum')

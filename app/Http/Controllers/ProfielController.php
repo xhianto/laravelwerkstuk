@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Rules\PWValidation;
 
 class ProfielController extends Controller
 {
@@ -19,6 +20,14 @@ class ProfielController extends Controller
 
     public function opslaan($username, Request $request) {
         //dd($request, $username);
+        request()->validate([
+            'straat' => ['required', 'string'],
+            'huisnummer' => ['required', 'string'],
+            'postcode' => ['required', 'numeric', 'min:1000', 'max:9999'],
+            'plaats' => ['required', 'string'],
+            'geboortedatum' => ['required', 'date_format:d/m/Y', 'before:tomorrow'],
+
+        ]);
         $user = User::where('username', $username)->first();
         if ($request->hasFile('avatar')){
             if ($request->file('avatar')->isValid()) {
@@ -40,9 +49,19 @@ class ProfielController extends Controller
         $user->postcode = $request->input('postcode');
         $user->plaats = $request->input('plaats');
         $user->geboortedatum = date('Y-m-d', strtotime($request->input('geboortedatum')));
-        if ($request->input('password') != null && $request->input('password') == $request->input('bevestigPassword')){
-            $user->password = bcrypt($request->input('password'));
+
+        if ($request->input('oldpassword') != null){
+            request()->validate([
+                'oldpassword' => ['string', new PWValidation],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+            if ($request->input('password') != null && $request->input('password') == $request->input('password_confirmation')){
+    //            'password' => ['string', 'min:8', 'confirmed']
+                $user->password = bcrypt($request->input('password'));
+            }
         }
+
+
         $user->updated_at = now();
         //dd($user);
         $user->save();
