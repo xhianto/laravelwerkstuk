@@ -132,12 +132,6 @@
                             <label for="geboortedatum" class="col-md-4 col-form-label text-md-right">{{ __('Geboortedatum ') }}</label>
 
                             <div class="col-md-6">
-{{--                                <input id="geboortedatum" type="date" class="form-control @error('geboortedatum') is-invalid @enderror" name="geboortedatum" value="{{ old('geboortedatum') }}" required autocomplete="geboortedatum" autofocus>--}}
-                                {{--                                <div class="row">--}}
-                                {{--                                <input type="number" id="dag" class="form-control col-md-3" name="dag" value="{{ old('dag') }}" required autocomplete="dag" />--}}
-                                {{--                                <input type="number" id="maand" class="form-control col-md-3" name="maand" value="{{ old('maand') }}" required autocomplete="maand" />--}}
-                                {{--                                <input type="number" id="jaar" class="form-control col-md-4" name="jaar" value="{{ old('jaar') }}" required autocomplete="jaar" />--}}
-                                {{--                                </div>--}}
                                 <input id="geboortedatum" type="text" class="datepicker form-control @error('geboortedatum') is-invalid @enderror" name="geboortedatum" value="{{ old('geboortedatum') }}" required autocomplete="geboortedatum" autofocus>
                                 <script type="text/javascript">
                                     $('.datepicker').datepicker({

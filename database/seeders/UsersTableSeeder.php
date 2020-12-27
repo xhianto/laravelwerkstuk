@@ -14,7 +14,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         \DB::table('users')->insert([
-            //'name' => 'admin',
             'username' => 'admin',
             'voornaam' => 'Ad',
             'familienaam' => 'Min',
@@ -31,7 +30,6 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         \DB::table('users')->insert([
-            //'name' => 'user',
             'username' => 'user',
             'voornaam' => 'U',
             'familienaam' => 'Ser',

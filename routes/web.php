@@ -7,6 +7,9 @@ use App\Http\Controllers\GebruikersBeheerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfielController;
 
+//use Illuminate\Foundation\Auth\EmailVerificationRequest;
+//use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,24 +22,11 @@ use App\Http\Controllers\ProfielController;
 */
 
 Route::get('/', function () {
-    return view('content.index');
+    return redirect(route('nieuws'));
 });
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/user', function () {
-        return view('other/user');
-    })->name('user');
-
-    Route::group(['middleware' => ['admin']], function () {
-
-        Route::get('/admin', function () {
-            return view('other/admin');
-        })->name('admin');
-
-    });
-});
 //nieuws
 Route::group(['prefix' => 'nieuws'], function () {
     Route::get('/', [NieuwsItemsController::class, 'nieuws'])->name('nieuws');
@@ -68,13 +58,6 @@ Route::group(['prefix' => 'profiel'], function () {
         Route::post('/{username}', [ProfielController::class, 'opslaan'])->name('profielopslaan');
 
         Route::group(['middleware' => ['admin']], function () {
-
-//            Route::get('/admin', function () {
-//                return view('other/admin');
-//            })->name('admin');
-//            Route::get('/gebruikers', function () {
-//                return view('auth.gebruikers');
-//            })->name('gebruikersbeheer');
         });
     });
 });
@@ -93,3 +76,4 @@ Route::get('about', function () {
 Route::get('geenToegang', function () {
     return view('other/geenToegang');
 })->name('geenToegang');
+

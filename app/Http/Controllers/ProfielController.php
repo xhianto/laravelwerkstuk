@@ -11,15 +11,12 @@ class ProfielController extends Controller
 {
     public function profiel($username) {
         $user = User::where('username', $username)->first();
-        //$user->geboortedatum = date('d/m/Y', strtotime($user->geboortedatum));
-        //dd($user);
         return view('profiel.index', [
             'user' => $user
         ]);
     }
 
     public function opslaan($username, Request $request) {
-        //dd($request, $username);
         request()->validate([
             'straat' => ['required', 'string'],
             'huisnummer' => ['required', 'string'],
@@ -56,14 +53,12 @@ class ProfielController extends Controller
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
             if ($request->input('password') != null && $request->input('password') == $request->input('password_confirmation')){
-    //            'password' => ['string', 'min:8', 'confirmed']
                 $user->password = bcrypt($request->input('password'));
             }
         }
 
 
         $user->updated_at = now();
-        //dd($user);
         $user->save();
         return redirect( route('profiel', ['username' => $user->username]));
     }

@@ -24,9 +24,11 @@ class ContactController extends Controller
         $bericht = $request->input('bericht');
         $onderwerp = $request->input('onderwerp');
         $beheerders = User::where('role_id', 1)->get();
+        $emails=array();
         foreach ($beheerders as $beheerder){
-            Mail::to($beheerder->email)->send(new ContactMail($bericht, $email, $onderwerp));
+            array_push($emails, $beheerder->email);
         }
+        Mail::to($emails)->send(new ContactMail($bericht, $email, $onderwerp));
         return redirect(route('contact'));
     }
 }

@@ -19,12 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('about') }}">About </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user') }}">UserPage </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin') }}">AdminPage </a>
-                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

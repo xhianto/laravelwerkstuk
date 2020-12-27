@@ -24,9 +24,7 @@
         </div>
     @endforeach
     @if(Auth::user())
-        <h2>Dit kan een ingelogde zien</h2>
         @if(Auth::user()->hasRole('admin'))
-            <h2>Alleen admin zou dit moeten zien</h2>
             <form action="{{ route('nieuws') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
@@ -51,7 +49,6 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="image">Afbeelding: </label>
                     <input class="col-sm-6" type="file" name="image" />
-{{--                    <input class="offset-sm-3" type="file" name="image" />--}}
                 </div>
                 <button type="submit" name="submit" value="submit" class="btn btn-primary offset-sm-3">Submit</button>
             </form>
