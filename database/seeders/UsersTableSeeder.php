@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('users')->insert([
+        DB::table('users')->insert([
             'username' => 'admin',
             'voornaam' => 'Ad',
             'familienaam' => 'Min',
@@ -29,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        \DB::table('users')->insert([
+        DB::table('users')->insert([
             'username' => 'user',
             'voornaam' => 'U',
             'familienaam' => 'Ser',

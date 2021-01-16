@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class GebruikersBeheerController extends Controller
 {
@@ -60,7 +61,7 @@ class GebruikersBeheerController extends Controller
             'postcode' => ['required', 'numeric', 'min:1000', 'max:9999'],
             'plaats' => ['required', 'string']
         ]);
-        $data['geboortedatum'] = date('Y-m-d', strtotime(\Str::replaceArray('/',['-','-'],$data['geboortedatum'])));
+        $data['geboortedatum'] = date('Y-m-d', strtotime(Str::replaceArray('/',['-','-'],$data['geboortedatum'])));
         $data['role_id'] = $request->input('soortGebruiker');
         $data['password'] = bcrypt($data['password']);
         User::create($data);

@@ -6,6 +6,7 @@ use App\Http\Controllers\NieuwsItemsController;
 use App\Http\Controllers\GebruikersBeheerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfielController;
+use App\Http\Controllers\FAQsController;
 
 //use Illuminate\Foundation\Auth\EmailVerificationRequest;
 //use Illuminate\Http\Request;
@@ -65,6 +66,19 @@ Route::group(['prefix' => 'profiel'], function () {
 Route::group(['prefix' => 'contact'], function () {
     Route::get('/', [ContactController::class, 'index'])->name('contact');
     Route::post('/sendEmail', [ContactController::class, 'sendEmail'])->name('sendEmail');
+});
+Route::group(['prefix' => 'faq'], function (){
+    Route::get('/', [FAQsController::class, 'index'])->name('faq');
+    Route::post('/', [FAQsController::class, 'categorie'])->name('faqCategorie');
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/nieuwe', [FAQsController::class, 'nieuweFaq'])->name('nieuweFaq');
+        Route::post('/faqAanmaken', [FAQsController::class, 'faqAanmaken'])->name('faqAanmaken');
+        Route::post('/faqbewerkverwijder', [FAQsController::class, 'faqBewerkVerwijder'])->name('faqbewerkverwijder');
+        Route::get('faqverwijder/{id}', [FAQsController::class, 'verwijder'])->name('faqVerwijder');
+        Route::post('faqverwijderen', [FAQsController::class, 'verwijderen'])->name('faqVerwijderen');
+        Route::get('faqbewerk/{id}', [FAQsController::class, 'bewerk'])->name('faqBewerk');
+        Route::post('faqbewerken', [FAQsController::class, 'bewerken'])->name('faqBewerken');
+    });
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

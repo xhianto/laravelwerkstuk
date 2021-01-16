@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Rules\PWValidation;
+use Illuminate\Support\Str;
 
 class ProfielController extends Controller
 {
@@ -23,7 +24,6 @@ class ProfielController extends Controller
             'postcode' => ['required', 'numeric', 'min:1000', 'max:9999'],
             'plaats' => ['required', 'string'],
             'geboortedatum' => ['required', 'date_format:d/m/Y', 'before:tomorrow'],
-
         ]);
         $user = User::where('username', $username)->first();
         if ($request->hasFile('avatar')){
@@ -45,7 +45,7 @@ class ProfielController extends Controller
         $user->huisnummer = $request->input('huisnummer');
         $user->postcode = $request->input('postcode');
         $user->plaats = $request->input('plaats');
-        $user->geboortedatum = date('Y-m-d', strtotime($request->input('geboortedatum')));
+        $user->geboortedatum = date('Y-m-d', strtotime(Str::replaceArray('/',['-','-'],$request->input('geboortedatum'))));
 
         if ($request->input('oldpassword') != null){
             request()->validate([
