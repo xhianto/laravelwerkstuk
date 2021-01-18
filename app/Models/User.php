@@ -63,4 +63,7 @@ class User extends Authenticatable //implements MustVerifyEmail
         }
         return false;
     }
+    public function voorstellingen(){
+        return $this->belongsToMany(Voorstelling::class)->withPivot('aantal')->withTimestamps();
+    }
 }

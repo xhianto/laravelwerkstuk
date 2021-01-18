@@ -62,4 +62,20 @@ class ProfielController extends Controller
         $user->save();
         return redirect( route('profiel', ['username' => $user->username]));
     }
+
+    public function users() {
+        $users = User::all();
+        return view('profiel.users', [
+            'users' => $users
+        ]);
+    }
+
+    public function reserveringen($username) {
+        $user = User::where('username', $username)->first();
+        $voorstellingen = $user->voorstellingen()->get();
+        return view('profiel.reserveringen', [
+            'user' => $user,
+            'voorstellingen' => $voorstellingen,
+        ]);
+    }
 }

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Nieuwsitem;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use function GuzzleHttp\json_decode;
 
 class NieuwsItemsController extends Controller
 {

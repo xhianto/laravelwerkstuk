@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        DB::table('users')->insert([[
             'username' => 'admin',
             'voornaam' => 'Ad',
             'familienaam' => 'Min',
@@ -26,11 +26,12 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@domein.be',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
+            'avatar' => '/storage/images/avatar1.png',
             'role_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
-        ]);
-        DB::table('users')->insert([
+        ],
+        [
             'username' => 'user',
             'voornaam' => 'U',
             'familienaam' => 'Ser',
@@ -42,9 +43,10 @@ class UsersTableSeeder extends Seeder
             'email' => 'user@domein.be',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
+            'avatar' => '/storage/images/avatar2.png',
             'role_id' => 2,
             'created_at' => now(),
             'updated_at' => now()
-        ]);
+        ]]);
     }
 }

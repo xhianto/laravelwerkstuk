@@ -132,7 +132,7 @@ return [
         ],
         'geboortedatum' => [
             'before' => 'Geboortedatum mag niet in de toekomst liggen.'
-        ]
+        ],
     ],
     /*
     |--------------------------------------------------------------------------

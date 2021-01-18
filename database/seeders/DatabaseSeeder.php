@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Voorstelling;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,9 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(NieuwsItemsTableSeeder::class);
-        $this->call(FAQsTableSeeder::class);
+        $this->call(RolesTableSeeder::class)
+            ->call(UsersTableSeeder::class)
+            ->call(NieuwsItemsTableSeeder::class)
+            ->call(FAQsTableSeeder::class)
+            ->call(FilmsTableSeeder::class)
+            ->call(ZalenTableSeeder::class)
+            ->call(VoorstellingenTableSeeder::class);
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\GebruikersBeheerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfielController;
 use App\Http\Controllers\FAQsController;
+use App\Http\Controllers\FilmsController;
+use App\Http\Controllers\WinkelmandController;
 
 //use Illuminate\Foundation\Auth\EmailVerificationRequest;
 //use Illuminate\Http\Request;
@@ -57,10 +59,11 @@ Route::group(['prefix' => 'profiel'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/{username}', [ProfielController::class, 'profiel'])->name('profiel');
         Route::post('/{username}', [ProfielController::class, 'opslaan'])->name('profielopslaan');
-
-        Route::group(['middleware' => ['admin']], function () {
-        });
     });
+});
+Route::get('reserveringen/{username}', [ProfielController::class, 'reserveringen'])->name('reserveringen');
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/users', [ProfielController::class, 'users'])->name('users');
 });
 
 Route::group(['prefix' => 'contact'], function () {
@@ -71,9 +74,9 @@ Route::group(['prefix' => 'faq'], function (){
     Route::get('/', [FAQsController::class, 'index'])->name('faq');
     Route::post('/', [FAQsController::class, 'categorie'])->name('faqCategorie');
     Route::group(['middleware' => ['admin']], function () {
-        Route::get('/nieuwe', [FAQsController::class, 'nieuweFaq'])->name('nieuweFaq');
-        Route::post('/faqAanmaken', [FAQsController::class, 'faqAanmaken'])->name('faqAanmaken');
-        Route::post('/faqbewerkverwijder', [FAQsController::class, 'faqBewerkVerwijder'])->name('faqbewerkverwijder');
+        Route::get('nieuwe', [FAQsController::class, 'nieuweFaq'])->name('nieuweFaq');
+        Route::post('faqAanmaken', [FAQsController::class, 'faqAanmaken'])->name('faqAanmaken');
+        Route::post('faqbewerkverwijder', [FAQsController::class, 'faqBewerkVerwijder'])->name('faqbewerkverwijder');
         Route::get('faqverwijder/{id}', [FAQsController::class, 'verwijder'])->name('faqVerwijder');
         Route::post('faqverwijderen', [FAQsController::class, 'verwijderen'])->name('faqVerwijderen');
         Route::get('faqbewerk/{id}', [FAQsController::class, 'bewerk'])->name('faqBewerk');
@@ -81,6 +84,17 @@ Route::group(['prefix' => 'faq'], function (){
     });
 });
 
+Route::group(['prefix' => 'films'], function (){
+    Route::get('/', [FilmsController::class, 'index'])->name('films');
+    Route::get('voorstelling/{id}', [FilmsController::class, 'voorstelling'])->name('voorstelling');
+    Route::post('/inWinkelMandje', [FilmsController::class, 'inWinkelMandje'])->name('inWinkelMand');
+});
+Route::group(['prefix' => 'winkelmand'], function (){
+    Route::get('/', [WinkelmandController::class, 'index'])->name('winkelmand');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::post('afhandelen', [WinkelmandController::class, 'afhandelen'])->name('afhandelen');
+    });
+});
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('about', function () {

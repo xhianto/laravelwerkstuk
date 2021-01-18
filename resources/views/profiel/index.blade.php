@@ -22,6 +22,7 @@
             <h1>{{ $user->username }}</h1>
             <p>{{ $user->voornaam }} {{ $user->familienaam }}</p>
             <p>{{ $user->email }}</p>
+            <a href="{{ route('reserveringen', ['username' => $user->username]) }}" class="btn border-secondary">Lijst van reservatie</a>
         </div>
 
         <div class="col-md-5 border-left">

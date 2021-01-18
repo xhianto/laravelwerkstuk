@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNieuwsItemsTable extends Migration
+class CreateNieuwsitemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateNieuwsItemsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('afbeelding')->nullable();
-            $table->string('tekst');
+            $table->longText('tekst');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateNieuwsItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nieuwsItem');
+        Schema::dropIfExists('nieuwsitems');
     }
 }

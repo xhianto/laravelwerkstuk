@@ -16,9 +16,9 @@ class CreateFilmsTable extends Migration
         Schema::create('films', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->decimal('prijs', $scale = 2);
-            $table->integer('vrijeplaatsen');
-            $table->boolean('draaiend');
+            $table->string('afbeelding');
+            $table->longText('beschrijving');
+            $table->integer('lengte');
             $table->timestamps();
         });
     }

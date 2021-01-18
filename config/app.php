@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Werkstuk'),
+    'name' => env('Maak alleen gebruik van default', 'Filmoscoop'),
 
     /*
     |--------------------------------------------------------------------------
